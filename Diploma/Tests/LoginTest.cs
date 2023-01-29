@@ -11,7 +11,7 @@ public class LoginTest: BaseTest
     
     // used to go to URL to make sure that each test from the class will start from initial state
     [SetUp]
-    public void TextBoxTestSetUp()
+    public void LoginTestSetUp()
     {
         WebDriverFactory.Driver.Navigate().GoToUrl(TestSettings.LoginPageUrl);
     }
@@ -21,7 +21,7 @@ public class LoginTest: BaseTest
     public void LoginToTheSite()
     {
         _loginPage.EnterUsername(TestSettings.UserName);
-        _loginPage.EnterPassword(TestSettings.Password);
+        _loginPage.EnterPassword(TestSettings.LoginPagePassword);
         _loginPage.ClickLoginButton();
         Assert.That(BasePage.IsOrangeImageDisplayed);
     }
@@ -42,7 +42,7 @@ public class LoginTest: BaseTest
     public void NegativeInvalidUsernameIsEntered()
     {
         _loginPage.EnterUsername(TestSettings.InvalidUserName);
-        _loginPage.EnterPassword(TestSettings.Password);
+        _loginPage.EnterPassword(TestSettings.LoginPagePassword);
         _loginPage.ClickLoginButton();
         Assert.That(_loginPage.IsInvalidCredentialsErrorMessageDisplayed);
     }
@@ -59,7 +59,7 @@ public class LoginTest: BaseTest
     
     // clears cookies after execution of each test from the class
     [TearDown]
-    public void TextBoxTestTearDown()
+    public void LoginTestTearDown()
     {
         WebDriverFactory.Driver.Manage().Cookies.DeleteAllCookies();
     }

@@ -136,12 +136,14 @@
       <Compile Include="Data\Enums\Browsers.cs" />
       <Compile Include="Data\TestSettings.cs" />
       <Compile Include="Data\TextContextValues.cs" />
+      <Compile Include="PageObjects\AdminPage.cs" />
       <Compile Include="PageObjects\BasePage.cs" />
       <Compile Include="PageObjects\LoginPage.cs" />
-      <Compile Include="PageObjects\TextBoxPage.cs" />
+      <Compile Include="PageObjects\PimPage.cs" />
+      <Compile Include="Tests\AdminTest.cs" />
       <Compile Include="Tests\BaseTest.cs" />
       <Compile Include="Tests\LoginTest.cs" />
-      <Compile Include="Tests\TextBoxTests.cs" />
+      <Compile Include="Tests\PimTests.cs" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Drawing;
 using Diploma.Common.Drivers;
 using Diploma.Common.Extensions;
 using OpenQA.Selenium;
-using OpenQA.Selenium.DevTools.V85.DOM;
 
 namespace Diploma.Common.WebElements
 {
@@ -26,8 +24,14 @@ namespace Diploma.Common.WebElements
         // default IWebElement properties
         
         public string TagName => WebElement.TagName;
-        
+
         public string Text => WebElement.Text;
+        
+        public string GetText()
+        {
+            ScrollIntoView();
+            return WebElement.Text;
+        }
 
         public bool Enabled => WebElement.Enabled;
 
@@ -42,11 +46,12 @@ namespace Diploma.Common.WebElements
         // default IWebElement methods
 
         public void Clear() => WebElement.Clear();
-
+        
         public void Click()
         {
             try
             {
+                
                 WebElement.Click();
             }
             catch (ElementClickInterceptedException) // here we can handle if click is intercepted and scroll element into view
@@ -80,9 +85,11 @@ namespace Diploma.Common.WebElements
 
         public void ScrollIntoView() =>
             WebDriverFactory.JavaScriptExecutor.ExecuteScript("arguments[0].scrollIntoView()", WebElement);
+
+        // method to click element using JaveScript
+        public void ClickElement() => WebDriverFactory.JavaScriptExecutor.ExecuteScript("arguments[0].click();", WebElement);   //WebDriverFactory.Actions.MoveToElement(WebElement).Click().Perform();
         
         // method to get value of class attribute 
-
         public string GetValueOfClassAttribute() => GetAttribute("class");
     }
 }
