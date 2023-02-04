@@ -87,8 +87,13 @@ namespace Diploma.Common.WebElements
             WebDriverFactory.JavaScriptExecutor.ExecuteScript("arguments[0].scrollIntoView()", WebElement);
 
         // method to click element using JaveScript
-        public void ClickElement() => WebDriverFactory.JavaScriptExecutor.ExecuteScript("arguments[0].click();", WebElement);   //WebDriverFactory.Actions.MoveToElement(WebElement).Click().Perform();
-        
+        public void ClickElement()
+        {
+            ScrollIntoView();
+            WebDriverFactory.JavaScriptExecutor.ExecuteScript("arguments[0].click();",
+                WebElement); //WebDriverFactory.Actions.MoveToElement(WebElement).Click().Perform();
+        }
+
         // method to get value of class attribute 
         public string GetValueOfClassAttribute() => GetAttribute("class");
     }

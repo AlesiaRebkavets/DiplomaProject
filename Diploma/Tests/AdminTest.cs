@@ -14,7 +14,7 @@ public class AdminTest: BaseTest
     // used to go to URL to make sure that each test from the class will start from initial state
     // provides log in before each test execution 
     [SetUp]
-    public void LoginTestSetUp()
+    public void AdminTestSetUp()
     {
         WebDriverFactory.Driver.Navigate().GoToUrl(TestSettings.AdminPageUrl);
         _loginPage.EnterUsername(TestSettings.UserName);
@@ -68,7 +68,7 @@ public class AdminTest: BaseTest
 
     // clears cookies after execution of each test from the class
     [TearDown]
-    public void LoginTestTearDown()
+    public void AdminTestTearDown()
     {
         WebDriverFactory.Driver.Manage().Cookies.DeleteAllCookies();
     }

@@ -18,6 +18,15 @@ public static class TestSettings
     public static string AdminPagePassword { get; set; }
     public static string AdminPageUsername { get; set; }
     
+    public static string PimPageFirstName { get; set; }
+    
+    public static string PimPageMiddleName { get; set; }
+    
+    public static string PimPageLastName { get; set; }
+    
+    public static string PimPageEmployeeId { get; set; }
+    
+    
 
     // after Build() it will contain context of .json file
 
@@ -38,5 +47,9 @@ public static class TestSettings
         AdminPageEmployeeName = TestConfiguration["AdminTestData:EmployeeName"];
         AdminPagePassword = TestConfiguration["AdminTestData:Password"];
         AdminPageUsername = TestConfiguration["AdminTestData:Username"];
+        PimPageFirstName = TestConfiguration["PimTestData:FirstName"];
+        PimPageMiddleName = TestConfiguration["PimTestData:MiddleName"];
+        PimPageLastName = TestConfiguration["PimTestData:LastName"];
+        PimPageEmployeeId = TestConfiguration["PimTestData:EmployeeId"];
     }
 }

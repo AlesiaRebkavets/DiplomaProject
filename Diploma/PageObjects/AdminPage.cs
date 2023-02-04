@@ -33,8 +33,6 @@ public class AdminPage: BasePage
     private MyWebElement _usernameColumnTableValue = new MyWebElement(By.XPath("//*[text()='"+TestSettings.AdminPageUsername+"']"));
     
     private MyWebElement _deleteTableButton = new MyWebElement(By.XPath($"//*[text()=\"{TestSettings.AdminPageUsername}\"]/../following-sibling::*[4]//*[@type='button'][1]"));
-    
-    private MyWebElement _editTableButton = new MyWebElement(By.XPath("//*[text()='"+TestSettings.AdminPageUsername+"']/../following-sibling::*[4]//*[@type='button'][2]"));
 
     private MyWebElement _requiredErrorMessageOfUserRoleInputField = new MyWebElement(By.XPath("//*[text()='User Role']/../following-sibling::*/../*[text()='Required']"));
     
