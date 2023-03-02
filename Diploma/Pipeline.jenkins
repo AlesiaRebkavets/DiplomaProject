@@ -1,0 +1,30 @@
+﻿pipeline{
+    agent any
+    stages{
+        stage('Checkout') {
+            steps {
+                git branch:'my-homework', url: 'https://github.com/AlesiaRebkavets/DiplomaProject.git'
+            }
+        }
+        stage('Restore') {
+            steps {
+                 bat 'dotnet restore'
+            }
+        }
+         stage('Build') {
+            steps {
+                 bat 'dotnet build'
+            }
+        }
+        stage('Test') {
+            steps {
+                 bat 'dotnet test'
+            }
+        }
+                stage('Reporting') {
+            steps {
+                 allure includeProperties: false, jdk: '', results: [[path: 'Diploma/bin/Debug/allure-results']]
+            }
+        }
+    }    
+}
