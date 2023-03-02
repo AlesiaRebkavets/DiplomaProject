@@ -1,16 +1,22 @@
-﻿using System.Threading;
+﻿using Allure.Net.Commons;
 using Diploma.Common.Drivers;
 using Diploma.Data;
 using Diploma.PageObjects;
+using NUnit.Allure.Attributes;
+using NUnit.Allure.Core;
 using NUnit.Framework;
+using NUnit.Framework.Interfaces;
+using OpenQA.Selenium;
 
 namespace Diploma.Tests;
 
-public class AdminTest: BaseTest
+[TestFixture]
+[AllureNUnit]
+public class AdminTest : BaseTest
 {
     private readonly LoginPage _loginPage = new LoginPage();
     private readonly AdminPage _adminPage = new AdminPage();
-    
+
     // used to go to URL to make sure that each test from the class will start from initial state
     // provides log in before each test execution 
     [SetUp]
@@ -25,6 +31,9 @@ public class AdminTest: BaseTest
 
     // Adding new admin user, verifying that new username is displayed in the table
     [Test]
+    [AllureSeverity((SeverityLevel.normal))]
+    [AllureSuite("Admin functionality")]
+    [AllureDescription("Adding new admin user, verifying that new username is displayed in the table")]
     public void AddAdminUser()
     {
         _adminPage.ClickAddButton();
@@ -42,6 +51,9 @@ public class AdminTest: BaseTest
 
     // Negative test: trying to add user without data entered
     [Test]
+    [AllureSeverity((SeverityLevel.normal))]
+    [AllureSuite("Admin functionality")]
+    [AllureDescription("Negative test: trying to add user without data entered")]
     public void NegativeAddUserWithoutDataEntered()
     {
         _adminPage.ClickAddButton();
@@ -54,22 +66,30 @@ public class AdminTest: BaseTest
         Assert.IsTrue(_adminPage.IsRequiredErrorMessageOfConfirmPasswordInputFieldDisplayed);
         Assert.IsTrue(_adminPage.IsSaveButtonDisplayed);
     }
-    
-    // Deleting user added in the first test
-    // ТЕСТ ФЕЙЛИТСЯ
+
+    // Delete user added in the first test
+    // ЗАФЕЙЛЕННЫЙ ТЕСТ СОГЛАСНО ДЗ ЛЕК.15 
     [Test]
+    [AllureSeverity((SeverityLevel.normal))]
+    [AllureSuite("Admin functionality")]
+    [AllureDescription("Delete user added in the first test")]
     public void DeleteAdminUser()
     {
         _adminPage.ClickDeleteTableButton();
         _adminPage.ClickYesDeleteButton();
-        Assert.That(!_adminPage.IsUsernameDisplayedInTheTable);   
-        // не могу понять почему выдает "No such element exception" вместо "isDisplayed = false"
+        Assert.That(!_adminPage.IsUsernameDisplayedInTheTable);
     }
 
-    // clears cookies after execution of each test from the class
+    // adds screenshot if test is failed and clears cookies after execution of each test from the class
     [TearDown]
     public void AdminTestTearDown()
     {
+        if (TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Failed)
+        {
+            var screenShot = ((ITakesScreenshot)WebDriverFactory.Driver).GetScreenshot().AsByteArray;
+            AllureLifecycle.Instance.AddAttachment(TestContext.CurrentContext.Test.Name, "image/png", screenShot);
+        }
+
         WebDriverFactory.Driver.Manage().Cookies.DeleteAllCookies();
     }
 }

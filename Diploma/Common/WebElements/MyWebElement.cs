@@ -6,27 +6,27 @@ using OpenQA.Selenium;
 
 namespace Diploma.Common.WebElements
 {
-    public class MyWebElement: IWebElement
+    public class MyWebElement : IWebElement
     {
         // constructor to initialize an instance of the element
         public MyWebElement(By by)
         {
             By = by;
         }
-        
+
         // property for locator 
         protected By By { get; set; }
-        
+
         // protected property for IWebElement returns value using IWebDriver extension method GetWebElementWhenExist
         // after that we can be sure that element is always in a stable state and prevent possible exceptions
         protected IWebElement WebElement => WebDriverFactory.Driver.GetWebElementWhenExist(By);
-        
+
         // default IWebElement properties
-        
+
         public string TagName => WebElement.TagName;
 
         public string Text => WebElement.Text;
-        
+
         public string GetText()
         {
             ScrollIntoView();
@@ -42,19 +42,19 @@ namespace Diploma.Common.WebElements
         public Size Size => WebElement.Size;
 
         public bool Displayed => WebElement.Displayed;
-        
+
         // default IWebElement methods
 
         public void Clear() => WebElement.Clear();
-        
+
         public void Click()
         {
             try
             {
-                
                 WebElement.Click();
             }
-            catch (ElementClickInterceptedException) // here we can handle if click is intercepted and scroll element into view
+            catch
+                (ElementClickInterceptedException) // here we can handle if click is intercepted and scroll element into view
             {
                 ScrollIntoView();
                 WebElement.Click();
@@ -78,9 +78,9 @@ namespace Diploma.Common.WebElements
         public void SendKeys(string text) => WebElement.SendKeys(text);
 
         public void Submit() => WebElement.Submit();
-        
+
         // custom methods
-        
+
         // method to scroll element into view using JaveScript
 
         public void ScrollIntoView() =>
@@ -92,6 +92,15 @@ namespace Diploma.Common.WebElements
             ScrollIntoView();
             WebDriverFactory.JavaScriptExecutor.ExecuteScript("arguments[0].click();",
                 WebElement); //WebDriverFactory.Actions.MoveToElement(WebElement).Click().Perform();
+        }
+
+        // method highlights and deletes text in the input field
+        public void ClearText()
+        {
+            Click();
+            WebDriverFactory.Actions.KeyDown(Keys.Shift).KeyDown(Keys.ArrowUp).Perform();
+            WebDriverFactory.Actions.KeyDown(Keys.Delete).Perform();
+            WebDriverFactory.Actions.KeyUp(Keys.Delete).KeyUp(Keys.ArrowUp).KeyUp(Keys.Shift).Perform();
         }
 
         // method to get value of class attribute 

@@ -16,10 +16,11 @@ namespace Diploma.Common.Extensions
             {
                 webDriverWait.PollingInterval = (TimeSpan)pollingInterval;
             }
+
             webDriverWait.IgnoreExceptionTypes(exceptionTypes); // allows us to ignore any type of exception 
             return webDriverWait;
         }
-        
+
         // extension method to perform FindElement with explicit wait
         public static IWebElement GetWebElementWhenExist(this IWebDriver driver, By by) =>
             driver.GetWebDriverWait().Until(drv => drv.FindElement(by));

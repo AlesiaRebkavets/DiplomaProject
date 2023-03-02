@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Dynamic;
 using Diploma.Data.Enums;
 using Microsoft.Extensions.Configuration;
 
@@ -7,26 +6,29 @@ namespace Diploma.Data;
 
 public static class TestSettings
 {
-    public static Browsers Browser { get; set; }
-    public static string LoginPageUrl { get; set; }
-    public static string AdminPageUrl { get; set; }
-    public static string UserName { get; set; }
-    public static string LoginPagePassword { get; set; }
-    public static string InvalidUserName { get; set; }
-    public static string InvalidPassword { get; set; }
-    public static string AdminPageEmployeeName { get; set; }
-    public static string AdminPagePassword { get; set; }
-    public static string AdminPageUsername { get; set; }
-    
-    public static string PimPageFirstName { get; set; }
-    
-    public static string PimPageMiddleName { get; set; }
-    
-    public static string PimPageLastName { get; set; }
-    
-    public static string PimPageEmployeeId { get; set; }
-    
-    
+    public static Browsers Browser { get; }
+    public static string LoginPageUrl { get; }
+    public static string AdminPageUrl { get; }
+    public static string UserName { get; }
+    public static string LoginPagePassword { get; }
+    public static string InvalidUserName { get; }
+    public static string InvalidPassword { get; }
+    public static string AdminPageEmployeeName { get; }
+    public static string AdminPagePassword { get; }
+    public static string AdminPageUsername { get; }
+
+    public static string PimPageFirstName { get; }
+
+    public static string PimPageMiddleName { get; }
+
+    public static string PimPageLastName { get; }
+
+    public static string PimPageEmployeeId { get; }
+
+    public static string BuzzPagePostText { get; }
+
+    public static string BuzzPageEditedPostText { get; }
+
 
     // after Build() it will contain context of .json file
 
@@ -51,5 +53,7 @@ public static class TestSettings
         PimPageMiddleName = TestConfiguration["PimTestData:MiddleName"];
         PimPageLastName = TestConfiguration["PimTestData:LastName"];
         PimPageEmployeeId = TestConfiguration["PimTestData:EmployeeId"];
+        BuzzPagePostText = TestConfiguration["BuzzTestData:PostText"];
+        BuzzPageEditedPostText = TestConfiguration["BuzzTestData:EditedPostText"];
     }
 }

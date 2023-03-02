@@ -37,6 +37,15 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
+        <Reference Include="Allure.Net.Commons, Version=2.9.4.0, Culture=neutral, processorArchitecture=MSIL">
+          <HintPath>..\packages\Allure.Net.Commons.2.9.4-preview.2\lib\net45\Allure.Net.Commons.dll</HintPath>
+        </Reference>
+        <Reference Include="Allure.NUnit, Version=2.9.4.0, Culture=neutral, processorArchitecture=MSIL">
+          <HintPath>..\packages\Allure.NUnit.2.9.4-preview.2\lib\netstandard2.0\Allure.NUnit.dll</HintPath>
+        </Reference>
+        <Reference Include="AspectInjector.Broker, Version=2.8.1.0, Culture=neutral, PublicKeyToken=a29e12442a3d3609, processorArchitecture=MSIL">
+          <HintPath>..\packages\AspectInjector.2.8.1\lib\netstandard2.0\AspectInjector.Broker.dll</HintPath>
+        </Reference>
         <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
           <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
         </Reference>
@@ -67,7 +76,16 @@
         <Reference Include="Microsoft.VisualStudio.CodeCoverage.Shim, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
           <HintPath>..\packages\Microsoft.CodeCoverage.17.4.0\lib\net462\Microsoft.VisualStudio.CodeCoverage.Shim.dll</HintPath>
         </Reference>
+        <Reference Include="MimeTypesMap, Version=1.0.8.0, Culture=neutral, PublicKeyToken=1b320cc08ad5aa89, processorArchitecture=MSIL">
+          <HintPath>..\packages\MimeTypesMap.1.0.8\lib\net452\MimeTypesMap.dll</HintPath>
+        </Reference>
         <Reference Include="mscorlib" />
+        <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+          <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+        </Reference>
+        <Reference Include="nunit.engine.api, Version=3.0.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+          <HintPath>..\packages\NUnit.Engine.Api.3.15.2\lib\net20\nunit.engine.api.dll</HintPath>
+        </Reference>
         <Reference Include="nunit.framework, Version=3.13.3.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
           <HintPath>..\packages\NUnit.3.13.3\lib\net45\nunit.framework.dll</HintPath>
         </Reference>
@@ -138,12 +156,23 @@
       <Compile Include="Data\TextContextValues.cs" />
       <Compile Include="PageObjects\AdminPage.cs" />
       <Compile Include="PageObjects\BasePage.cs" />
+      <Compile Include="PageObjects\BuzzPage.cs" />
       <Compile Include="PageObjects\LoginPage.cs" />
       <Compile Include="PageObjects\PimPage.cs" />
       <Compile Include="Tests\AdminTest.cs" />
       <Compile Include="Tests\BaseTest.cs" />
+      <Compile Include="Tests\BuzzTest.cs" />
       <Compile Include="Tests\LoginTest.cs" />
       <Compile Include="Tests\PimTest.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <Analyzer Include="..\packages\AspectInjector.2.8.1\analyzers\dotnet\cs\AspectInjector.Analyzer.dll" />
+      <Analyzer Include="..\packages\AspectInjector.2.8.1\analyzers\dotnet\cs\AspectInjector.Broker.dll" />
+      <Analyzer Include="..\packages\AspectInjector.2.8.1\analyzers\dotnet\cs\AspectInjector.Rules.dll" />
+      <Analyzer Include="..\packages\AspectInjector.2.8.1\analyzers\dotnet\cs\FluentIL.Common.dll" />
+    </ItemGroup>
+    <ItemGroup>
+      <Content Include="allureConfig.json" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -158,11 +187,13 @@
       <Error Condition="!Exists('..\packages\Microsoft.NET.Test.Sdk.17.4.0\build\net462\Microsoft.NET.Test.Sdk.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.NET.Test.Sdk.17.4.0\build\net462\Microsoft.NET.Test.Sdk.props'))" />
       <Error Condition="!Exists('..\packages\Microsoft.NET.Test.Sdk.17.4.0\build\net462\Microsoft.NET.Test.Sdk.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.NET.Test.Sdk.17.4.0\build\net462\Microsoft.NET.Test.Sdk.targets'))" />
       <Error Condition="!Exists('..\packages\Selenium.WebDriver.ChromeDriver.109.0.5414.2500-beta\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Selenium.WebDriver.ChromeDriver.109.0.5414.2500-beta\build\Selenium.WebDriver.ChromeDriver.targets'))" />
+      <Error Condition="!Exists('..\packages\AspectInjector.2.8.1\build\netstandard2.0\AspectInjector.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\AspectInjector.2.8.1\build\netstandard2.0\AspectInjector.targets'))" />
     </Target>
     <Import Project="..\packages\Selenium.WebDriver.4.7.0\build\Selenium.WebDriver.targets" Condition="Exists('..\packages\Selenium.WebDriver.4.7.0\build\Selenium.WebDriver.targets')" />
     <Import Project="..\packages\Microsoft.CodeCoverage.17.4.0\build\netstandard2.0\Microsoft.CodeCoverage.targets" Condition="Exists('..\packages\Microsoft.CodeCoverage.17.4.0\build\netstandard2.0\Microsoft.CodeCoverage.targets')" />
     <Import Project="..\packages\Microsoft.NET.Test.Sdk.17.4.0\build\net462\Microsoft.NET.Test.Sdk.targets" Condition="Exists('..\packages\Microsoft.NET.Test.Sdk.17.4.0\build\net462\Microsoft.NET.Test.Sdk.targets')" />
     <Import Project="..\packages\Selenium.WebDriver.ChromeDriver.109.0.5414.2500-beta\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('..\packages\Selenium.WebDriver.ChromeDriver.109.0.5414.2500-beta\build\Selenium.WebDriver.ChromeDriver.targets')" />
+    <Import Project="..\packages\AspectInjector.2.8.1\build\netstandard2.0\AspectInjector.targets" Condition="Exists('..\packages\AspectInjector.2.8.1\build\netstandard2.0\AspectInjector.targets')" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.
     <Target Name="BeforeBuild">

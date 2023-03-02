@@ -7,18 +7,27 @@ public class BasePage
 {
     // saving locators of BasePage
     private static MyWebElement _orangeImage = new MyWebElement(By.XPath("//*[@alt='client brand banner']"));
-    private static MyWebElement _adminMenuButton = new MyWebElement(By.XPath("//*[@class='oxd-main-menu']//*[text()='Admin']"));
-    private static MyWebElement _pimMenuButton = new MyWebElement(By.XPath("//*[@class='oxd-main-menu']//*[text()='PIM']"));
+
+    private static MyWebElement _adminMenuButton =
+        new MyWebElement(By.XPath("//*[@class='oxd-main-menu']//*[text()='Admin']"));
+
+    private static MyWebElement _pimMenuButton =
+        new MyWebElement(By.XPath("//*[@class='oxd-main-menu']//*[text()='PIM']"));
+
+    private static MyWebElement _buzzMenuButton =
+        new MyWebElement(By.XPath("//*[@class='oxd-main-menu']//*[text()='Buzz']"));
 
     // returns 'true' if OrangeImage is displayed (user is successfully logged in)
     public static bool IsOrangeImageDisplayed => _orangeImage.Displayed;
-    
+
     // clicks Admin menu button
     public static void ClickAdminMenuButton() => _adminMenuButton.Click();
-    
+
     // clicks PIM menu button
     public static void ClickPimMenuButton() => _pimMenuButton.Click();
 
+    // clicks Buzz menu button
+    public static void ClickBuzzMenuButton() => _buzzMenuButton.Click();
 
     // method to expand category
 

@@ -1,5 +1,4 @@
 ﻿using Diploma.Common.Drivers;
-using Diploma.PageObjects;
 using NUnit.Framework;
 
 namespace Diploma.Tests;
@@ -10,7 +9,6 @@ public class BaseTest
     [OneTimeSetUp]
     public void OneTimeSetUp()
     {
-        
         // setting the custom size of window
         //WebDriverFactory.Driver.Manage().Window.Size = new System.Drawing.Size(1200, 800);
     }
