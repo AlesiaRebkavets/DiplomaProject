@@ -1,5 +1,8 @@
 pipeline{
-    agent any
+    agent any  
+    environment {
+        nuget = "C:\\nuget\\nuget.exe"
+    }
     stages{
         stage('Checkout') {
             steps {
@@ -9,6 +12,7 @@ pipeline{
         stage('Restore') {
             steps {
                  bat 'dotnet restore'
+                 bat '%nuget% restore DiplomaProject.sln'
             }
         }
          stage('Build') {
