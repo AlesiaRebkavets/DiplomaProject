@@ -4,6 +4,11 @@ pipeline{
         nuget = "C:\\nuget\\nuget.exe"
     }
     stages{
+        stage('Checkout') {
+            steps {
+                git branch:'my-homework', url: 'https://github.com/AlesiaRebkavets/DiplomaProject.git'
+            }
+        }    
         stage('Restore') {
             steps {
                  bat 'dotnet restore'
