@@ -1,0 +1,37 @@
+{
+  "Common":{
+    "Browser": "Chrome",
+    "Urls": {
+      "LoginPage": "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login",
+      "AdminPage": "https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers"
+    }
+  },
+  "LoginTestData": {
+     "UserName": "Admin",
+     "Password": "admin123",
+     "InvalidUserName": "Adminn",
+     "InvalidPassword": "adminn123"
+  },
+  "AdminTestData": {
+     "EmployeeName": "Maggie  Manning",
+     "Password": "Password1!",
+     "Username": "Maggie2023"
+  },
+  "PimTestData": {
+     "FirstName": "Katy",
+     "MiddleName": "Scarlett",
+     "LastName": "O'Hara",
+     "EmployeeId": "4671"
+  },
+  "BuzzTestData": {
+     "PostText": "Hello! My name is Vasya and I'm alcoholic.",
+     "EditedPostText": "Hello! My name is Petya and I'm alcoholic."
+  }
+}
+
+
+
+
+
+
+
