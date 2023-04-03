@@ -1,6 +1,7 @@
 ﻿using System;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 
 namespace Diploma.Common.Extensions
 {
@@ -8,8 +9,7 @@ namespace Diploma.Common.Extensions
     {
         // extension method to get WebDriverWait
         // this method extends IWebDriver functionality
-        public static WebDriverWait GetWebDriverWait(this IWebDriver driver, int timeoutSeconds = 30,
-            TimeSpan? pollingInterval = null, params Type[] exceptionTypes)
+        public static WebDriverWait GetWebDriverWait(this IWebDriver driver, int timeoutSeconds = 30,  TimeSpan? pollingInterval = null, params Type[] exceptionTypes)
         {
             var webDriverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutSeconds));
             if (pollingInterval != null) // we can set our custom polling interval 
@@ -21,8 +21,9 @@ namespace Diploma.Common.Extensions
             return webDriverWait;
         }
 
-        // extension method to perform FindElement with explicit wait
-        public static IWebElement GetWebElementWhenExist(this IWebDriver driver, By by) =>
-            driver.GetWebDriverWait().Until(drv => drv.FindElement(by));
+        // extension methods to perform FindElement with explicit wait
+        public static IWebElement GetWebElement(this IWebDriver driver, By by) => driver.GetWebDriverWait().Until(ExpectedConditions.ElementExists(by));
+
+        public static bool WaitUntilElementIsVisible(this IWebDriver driver, By by) => driver.GetWebDriverWait().Until(ExpectedConditions.InvisibilityOfElementLocated(by));
     }
 }

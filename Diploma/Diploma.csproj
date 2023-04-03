@@ -89,6 +89,9 @@
         <Reference Include="nunit.framework, Version=3.13.3.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
           <HintPath>..\packages\NUnit.3.13.3\lib\net45\nunit.framework.dll</HintPath>
         </Reference>
+        <Reference Include="SeleniumExtras.WaitHelpers, Version=3.11.0.0, Culture=neutral, processorArchitecture=MSIL">
+          <HintPath>..\packages\DotNetSeleniumExtras.WaitHelpers.3.11.0\lib\net45\SeleniumExtras.WaitHelpers.dll</HintPath>
+        </Reference>
         <Reference Include="System" />
         <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
           <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -136,7 +139,10 @@
         </Reference>
         <Reference Include="System.Xml" />
         <Reference Include="WebDriver, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-          <HintPath>..\packages\Selenium.WebDriver.4.7.0\lib\net48\WebDriver.dll</HintPath>
+          <HintPath>..\packages\Selenium.WebDriver.4.8.1\lib\net48\WebDriver.dll</HintPath>
+        </Reference>
+        <Reference Include="WebDriver.Support, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+          <HintPath>..\packages\Selenium.Support.4.8.1\lib\net48\WebDriver.Support.dll</HintPath>
         </Reference>
     </ItemGroup>
     <ItemGroup>
@@ -150,15 +156,24 @@
       <Compile Include="Common\Drivers\WebDriverFactory.cs" />
       <Compile Include="Common\Extensions\WebDriverExtensions.cs" />
       <Compile Include="Common\WebElements\MyWebElement.cs" />
+      <Compile Include="Common\WebElements\Wrappers\MyDropDown.cs" />
+      <Compile Include="Common\WebElements\Wrappers\MyTable.cs" />
       <Compile Include="Data\Constants\Categories.cs" />
       <Compile Include="Data\Enums\Browsers.cs" />
       <Compile Include="Data\TestSettings.cs" />
       <Compile Include="Data\TextContextValues.cs" />
-      <Compile Include="PageObjects\AdminPage.cs" />
+      <Compile Include="PageObjects\Admin\UserManagement\AddUserPage.cs" />
+      <Compile Include="PageObjects\Admin\UserManagement\UserManagementPage.cs" />
       <Compile Include="PageObjects\BasePage.cs" />
       <Compile Include="PageObjects\BuzzPage.cs" />
       <Compile Include="PageObjects\LoginPage.cs" />
-      <Compile Include="PageObjects\PimPage.cs" />
+      <Compile Include="PageObjects\Pim\AddEmployeePage.cs" />
+      <Compile Include="PageObjects\Pim\EmployeeList\EmployeeListPage.cs" />
+      <Compile Include="PageObjects\Pim\EmployeeList\PersonalDetailsPage.cs" />
+      <Compile Include="Popups\BasePopup.cs" />
+      <Compile Include="Popups\DeletePopup.cs" />
+      <Compile Include="Popups\EditPostPopup.cs" />
+      <Compile Include="Popups\SuccessPopup.cs" />
       <Compile Include="Tests\AdminTest.cs" />
       <Compile Include="Tests\BaseTest.cs" />
       <Compile Include="Tests\BuzzTest.cs" />
@@ -182,19 +197,19 @@
       </PropertyGroup>
       <Error Condition="!Exists('..\packages\NUnit.3.13.3\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit.3.13.3\build\NUnit.props'))" />
       <Error Condition="!Exists('..\packages\NUnit3TestAdapter.4.3.1\build\net35\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit3TestAdapter.4.3.1\build\net35\NUnit3TestAdapter.props'))" />
-      <Error Condition="!Exists('..\packages\Selenium.WebDriver.4.7.0\build\Selenium.WebDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Selenium.WebDriver.4.7.0\build\Selenium.WebDriver.targets'))" />
       <Error Condition="!Exists('..\packages\Microsoft.CodeCoverage.17.4.0\build\netstandard2.0\Microsoft.CodeCoverage.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeCoverage.17.4.0\build\netstandard2.0\Microsoft.CodeCoverage.props'))" />
       <Error Condition="!Exists('..\packages\Microsoft.CodeCoverage.17.4.0\build\netstandard2.0\Microsoft.CodeCoverage.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeCoverage.17.4.0\build\netstandard2.0\Microsoft.CodeCoverage.targets'))" />
       <Error Condition="!Exists('..\packages\Microsoft.NET.Test.Sdk.17.4.0\build\net462\Microsoft.NET.Test.Sdk.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.NET.Test.Sdk.17.4.0\build\net462\Microsoft.NET.Test.Sdk.props'))" />
       <Error Condition="!Exists('..\packages\Microsoft.NET.Test.Sdk.17.4.0\build\net462\Microsoft.NET.Test.Sdk.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.NET.Test.Sdk.17.4.0\build\net462\Microsoft.NET.Test.Sdk.targets'))" />
-      <Error Condition="!Exists('..\packages\Selenium.WebDriver.ChromeDriver.109.0.5414.2500-beta\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Selenium.WebDriver.ChromeDriver.109.0.5414.2500-beta\build\Selenium.WebDriver.ChromeDriver.targets'))" />
       <Error Condition="!Exists('..\packages\AspectInjector.2.8.1\build\netstandard2.0\AspectInjector.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\AspectInjector.2.8.1\build\netstandard2.0\AspectInjector.targets'))" />
+      <Error Condition="!Exists('..\packages\Selenium.WebDriver.ChromeDriver.111.0.5563.6400\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Selenium.WebDriver.ChromeDriver.111.0.5563.6400\build\Selenium.WebDriver.ChromeDriver.targets'))" />
+      <Error Condition="!Exists('..\packages\Selenium.WebDriver.4.8.1\build\Selenium.WebDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Selenium.WebDriver.4.8.1\build\Selenium.WebDriver.targets'))" />
     </Target>
-    <Import Project="..\packages\Selenium.WebDriver.4.7.0\build\Selenium.WebDriver.targets" Condition="Exists('..\packages\Selenium.WebDriver.4.7.0\build\Selenium.WebDriver.targets')" />
     <Import Project="..\packages\Microsoft.CodeCoverage.17.4.0\build\netstandard2.0\Microsoft.CodeCoverage.targets" Condition="Exists('..\packages\Microsoft.CodeCoverage.17.4.0\build\netstandard2.0\Microsoft.CodeCoverage.targets')" />
     <Import Project="..\packages\Microsoft.NET.Test.Sdk.17.4.0\build\net462\Microsoft.NET.Test.Sdk.targets" Condition="Exists('..\packages\Microsoft.NET.Test.Sdk.17.4.0\build\net462\Microsoft.NET.Test.Sdk.targets')" />
-    <Import Project="..\packages\Selenium.WebDriver.ChromeDriver.109.0.5414.2500-beta\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('..\packages\Selenium.WebDriver.ChromeDriver.109.0.5414.2500-beta\build\Selenium.WebDriver.ChromeDriver.targets')" />
     <Import Project="..\packages\AspectInjector.2.8.1\build\netstandard2.0\AspectInjector.targets" Condition="Exists('..\packages\AspectInjector.2.8.1\build\netstandard2.0\AspectInjector.targets')" />
+    <Import Project="..\packages\Selenium.WebDriver.ChromeDriver.111.0.5563.6400\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('..\packages\Selenium.WebDriver.ChromeDriver.111.0.5563.6400\build\Selenium.WebDriver.ChromeDriver.targets')" />
+    <Import Project="..\packages\Selenium.WebDriver.4.8.1\build\Selenium.WebDriver.targets" Condition="Exists('..\packages\Selenium.WebDriver.4.8.1\build\Selenium.WebDriver.targets')" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.
     <Target Name="BeforeBuild">

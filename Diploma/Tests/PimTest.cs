@@ -14,9 +14,6 @@ namespace Diploma.Tests;
 [AllureNUnit]
 public class PimTest : BaseTest
 {
-    private readonly LoginPage _loginPage = new LoginPage();
-    private readonly PimPage _pimPage = new PimPage();
-
     // used to go to URL to make sure that each test from the class will start from initial state
     // provides log in before each test execution 
     [AllureStep("The first step")]
@@ -24,9 +21,9 @@ public class PimTest : BaseTest
     public void PimTestSetUp()
     {
         WebDriverFactory.Driver.Navigate().GoToUrl(TestSettings.LoginPageUrl);
-        _loginPage.EnterUsername(TestSettings.UserName);
-        _loginPage.EnterPassword(TestSettings.LoginPagePassword);
-        _loginPage.ClickLoginButton();
+        LoginPage.EnterUsername(TestSettings.UserName);
+        LoginPage.EnterPassword(TestSettings.LoginPagePassword);
+        LoginPage.ClickLoginButton();
         BasePage.ClickPimMenuButton();
     }
 
@@ -37,13 +34,13 @@ public class PimTest : BaseTest
     [AllureDescription("Adding new employee, verifying that last name of the employee is displayed in the table")]
     public void AddNewEmployee()
     {
-        _pimPage.ClickAddButton();
-        _pimPage.EnterFirstName(TestSettings.PimPageFirstName);
-        _pimPage.EnterMiddleName(TestSettings.PimPageMiddleName);
-        _pimPage.EnterLastName(TestSettings.PimPageLastName);
-        _pimPage.EnterEmployeeId(TestSettings.PimPageEmployeeId);
-        _pimPage.ClickSaveButton();
-        Assert.That(_pimPage.IsPersonalDetailsPageDisplayed);
+        EmployeeListPage.ClickAddButton();
+        AddEmployeePage.EnterFirstName(TestSettings.PimPageFirstName);
+        AddEmployeePage.EnterMiddleName(TestSettings.PimPageMiddleName);
+        AddEmployeePage.EnterLastName(TestSettings.PimPageLastName);
+        AddEmployeePage.EnterEmployeeId(TestSettings.PimPageEmployeeId);
+        AddEmployeePage.ClickSaveButton();
+        Assert.That(PersonalDetailsPage.IsPersonalDetailsPageDisplayed);
     }
 
     // Negative test: trying to add employee without data entered
@@ -53,23 +50,22 @@ public class PimTest : BaseTest
     [AllureDescription("Negative test: trying to add employee without data entered")]
     public void NegativeAddEmployeeWithoutDataEntered()
     {
-        _pimPage.ClickAddButton();
-        _pimPage.ClickSaveButton();
-        Assert.That(_pimPage.IsRequiredErrorMessageOfFirstNameInputFieldDisplayed);
-        Assert.That(_pimPage.IsRequiredErrorMessageOfLastNameInputFieldDisplayed);
+        EmployeeListPage.ClickAddButton();
+        AddEmployeePage.ClickSaveButton();
+        Assert.That(AddEmployeePage.IsRequiredErrorMessageOfFirstNameInputFieldDisplayed);
+        Assert.That(AddEmployeePage.IsRequiredErrorMessageOfLastNameInputFieldDisplayed);
     }
 
     // Delete employee added in the first test
-    // ЗАФЕЙЛЕННЫЙ ТЕСТ СОГЛАСНО ДЗ ЛЕК.15
     [AllureSeverity((SeverityLevel.normal))]
     [AllureSuite("Pim functionality")]
     [AllureDescription("Delete employee added in the first test")]
     [Test]
     public void DeleteEmployee()
     {
-        _pimPage.ClickDeleteButton();
-        _pimPage.ClickYesDeleteButton();
-        Assert.That(!_pimPage.IsEmployeeDataDisplayed);
+        EmployeeListPage.ClickDeleteButton(TestSettings.PimPageLastName);
+        DeletePopup.ClickYesDeleteButton();
+        Assert.That(!EmployeeListPage.IsEmployeeDataDisplayed(TestSettings.PimPageLastName));
     }
 
     // adds screenshot if test is failed and clears cookies after execution of each test from the class

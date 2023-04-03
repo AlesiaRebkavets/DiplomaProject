@@ -13,6 +13,9 @@
      "InvalidPassword": "adminn123"
   },
   "AdminTestData": {
+     "UserRoleDropDownValue": "ESS",
+     "StatusDropDownValue": "Enabled",
+     "InputData": "ma",  
      "EmployeeName": "Maggie  Manning",
      "Password": "Password1!",
      "Username": "Maggie2023"
@@ -20,7 +23,7 @@
   "PimTestData": {
      "FirstName": "Katy",
      "MiddleName": "Scarlett",
-     "LastName": "O'Hara",
+     "LastName": "OHara",
      "EmployeeId": "4671"
   },
   "BuzzTestData": {

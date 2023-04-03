@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Linq;
 using Diploma.Data;
 using Diploma.Data.Enums;
@@ -10,7 +9,7 @@ using OpenQA.Selenium.Interactions;
 
 namespace Diploma.Common.Drivers
 {
-    public class WebDriverFactory
+    public static class WebDriverFactory
     {
         // collection created to isolate threads for possible parallelization
         private static readonly ConcurrentDictionary<string, IWebDriver> DriverCollection = new();
@@ -19,18 +18,18 @@ namespace Diploma.Common.Drivers
         {
             get
             {
-                if (!DriverCollection.Keys.Contains(TextContextValues
-                        .ExecutableClassName)) // if driver is not initialized yet we do it
+                // if driver is not initialized yet we do it
+                if (!DriverCollection.Keys.Contains(TextContextValues.ExecutableClassName))
                 {
                     InitializeDriver();
                 }
 
-                return DriverCollection.First(pair => pair.Key == TextContextValues.ExecutableClassName)
-                    .Value; // return driver for needed test class
+                // return driver for needed test class
+                return DriverCollection.First(pair => pair.Key == TextContextValues.ExecutableClassName).Value;
             }
-            private set =>
-                DriverCollection.TryAdd(TextContextValues.ExecutableClassName,
-                    value); // new driver will be assigned only if DriverCollection doesn't contains value by this key
+
+            // new driver will be assigned only if DriverCollection doesn't contains value by this key
+            private set => DriverCollection.TryAdd(TextContextValues.ExecutableClassName, value);
         }
 
         // return instance of Action
@@ -48,9 +47,8 @@ namespace Diploma.Common.Drivers
             {
                 Browsers.Chrome => new ChromeDriver(),
                 Browsers.Edge => new EdgeDriver(),
-                _ => throw new InvalidOperationException(),
+                _ => new ChromeDriver(),
             };
-            Driver.Manage().Window.Maximize();
         }
     }
 }

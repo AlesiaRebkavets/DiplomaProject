@@ -14,18 +14,15 @@ namespace Diploma.Tests;
 [AllureNUnit]
 public class AdminTest : BaseTest
 {
-    private readonly LoginPage _loginPage = new LoginPage();
-    private readonly AdminPage _adminPage = new AdminPage();
-
     // used to go to URL to make sure that each test from the class will start from initial state
     // provides log in before each test execution 
     [SetUp]
     public void AdminTestSetUp()
     {
         WebDriverFactory.Driver.Navigate().GoToUrl(TestSettings.AdminPageUrl);
-        _loginPage.EnterUsername(TestSettings.UserName);
-        _loginPage.EnterPassword(TestSettings.LoginPagePassword);
-        _loginPage.ClickLoginButton();
+        LoginPage.EnterUsername(TestSettings.UserName);
+        LoginPage.EnterPassword(TestSettings.LoginPagePassword);
+        LoginPage.ClickLoginButton();
         BasePage.ClickAdminMenuButton();
     }
 
@@ -36,17 +33,15 @@ public class AdminTest : BaseTest
     [AllureDescription("Adding new admin user, verifying that new username is displayed in the table")]
     public void AddAdminUser()
     {
-        _adminPage.ClickAddButton();
-        _adminPage.ClickUserRoleDropdown();
-        _adminPage.SelectEssUserRoleDropdownOption();
-        _adminPage.ClickStatusDropdown();
-        _adminPage.SelectEnabledStatusDropdownOption();
-        _adminPage.EnterEmployeeName(TestSettings.AdminPageEmployeeName);
-        _adminPage.EnterUsername(TestSettings.AdminPageUsername);
-        _adminPage.EnterPassword(TestSettings.AdminPagePassword);
-        _adminPage.ConfirmPassword(TestSettings.AdminPagePassword);
-        _adminPage.ClickSaveButton();
-        Assert.AreEqual(TestSettings.AdminPageUsername, _adminPage.GetUsernameColumnTableValue());
+        UserManagementPage.ClickAddButton();
+        AddUserPage.SelectUserRoleDropDownValue(TestSettings.AdminPageUserRoleDropDownValue);
+        AddUserPage.SelectStatusDropDownValue(TestSettings.AdminPageStatusDropDownValue);
+        AddUserPage.SelectEmployeeNameDropDownValue(TestSettings.AdminPageEmployeeName);
+        AddUserPage.EnterUsername(TestSettings.AdminPageUsername);
+        AddUserPage.EnterPassword(TestSettings.AdminPagePassword);
+        AddUserPage.ConfirmPassword(TestSettings.AdminPagePassword);
+        AddUserPage.ClickSaveButton();
+        Assert.AreEqual(TestSettings.AdminPageUsername, UserManagementPage.GetUsernameColumnTableValue(TestSettings.AdminPageUsername));
     }
 
     // Negative test: trying to add user without data entered
@@ -56,28 +51,27 @@ public class AdminTest : BaseTest
     [AllureDescription("Negative test: trying to add user without data entered")]
     public void NegativeAddUserWithoutDataEntered()
     {
-        _adminPage.ClickAddButton();
-        _adminPage.ClickSaveButton();
-        Assert.IsTrue(_adminPage.IsRequiredErrorMessageOfUserRoleInputFieldDisplayed);
-        Assert.IsTrue(_adminPage.IsRequiredErrorMessageOfStatusInputFieldDisplayed);
-        Assert.IsTrue(_adminPage.IsRequiredErrorMessageOfPasswordInputFieldDisplayed);
-        Assert.IsTrue(_adminPage.IsRequiredErrorMessageOfEmployeeNameInputFieldDisplayed);
-        Assert.IsTrue(_adminPage.IsRequiredErrorMessageOfUserNameInputFieldDisplayed);
-        Assert.IsTrue(_adminPage.IsRequiredErrorMessageOfConfirmPasswordInputFieldDisplayed);
-        Assert.IsTrue(_adminPage.IsSaveButtonDisplayed);
+        UserManagementPage.ClickAddButton();
+        AddUserPage.ClickSaveButton();
+        Assert.IsTrue(AddUserPage.IsRequiredErrorMessageOfUserRoleInputFieldDisplayed);
+        Assert.IsTrue(AddUserPage.IsRequiredErrorMessageOfStatusInputFieldDisplayed);
+        Assert.IsTrue(AddUserPage.IsRequiredErrorMessageOfPasswordInputFieldDisplayed);
+        Assert.IsTrue(AddUserPage.IsRequiredErrorMessageOfEmployeeNameInputFieldDisplayed);
+        Assert.IsTrue(AddUserPage.IsRequiredErrorMessageOfUserNameInputFieldDisplayed);
+        Assert.IsTrue(AddUserPage.IsRequiredErrorMessageOfConfirmPasswordInputFieldDisplayed);
+        Assert.IsTrue(AddUserPage.IsSaveButtonDisplayed);
     }
 
     // Delete user added in the first test
-    // ЗАФЕЙЛЕННЫЙ ТЕСТ СОГЛАСНО ДЗ ЛЕК.15 
     [Test]
     [AllureSeverity((SeverityLevel.normal))]
     [AllureSuite("Admin functionality")]
     [AllureDescription("Delete user added in the first test")]
     public void DeleteAdminUser()
     {
-        _adminPage.ClickDeleteTableButton();
-        _adminPage.ClickYesDeleteButton();
-        Assert.That(!_adminPage.IsUsernameDisplayedInTheTable);
+        UserManagementPage.ClickDeleteTableButton(TestSettings.AdminPageUsername);
+        DeletePopup.ClickYesDeleteButton();
+        Assert.IsTrue(!UserManagementPage.IsUsernameDisplayedInTheTable(TestSettings.AdminPageUsername));
     }
 
     // adds screenshot if test is failed and clears cookies after execution of each test from the class

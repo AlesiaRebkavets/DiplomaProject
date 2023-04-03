@@ -14,18 +14,15 @@ namespace Diploma.Tests;
 [AllureNUnit]
 public class BuzzTest : BaseTest
 {
-    private readonly LoginPage _loginPage = new LoginPage();
-    private readonly BuzzPage _buzzPage = new BuzzPage();
-
     // used to go to URL to make sure that each test from the class will start from initial state
     // provides log in before each test execution 
     [SetUp]
     public void BuzzTestSetUp()
     {
         WebDriverFactory.Driver.Navigate().GoToUrl(TestSettings.LoginPageUrl);
-        _loginPage.EnterUsername(TestSettings.UserName);
-        _loginPage.EnterPassword(TestSettings.LoginPagePassword);
-        _loginPage.ClickLoginButton();
+        LoginPage.EnterUsername(TestSettings.UserName);
+        LoginPage.EnterPassword(TestSettings.LoginPagePassword);
+        LoginPage.ClickLoginButton();
         BasePage.ClickBuzzMenuButton();
     }
 
@@ -36,9 +33,9 @@ public class BuzzTest : BaseTest
     [AllureDescription("Adding new post, verifying that its context is displayed on the page")]
     public void AddNewPost()
     {
-        _buzzPage.EnterPostText(TestSettings.BuzzPagePostText);
-        _buzzPage.ClickPostButton();
-        Assert.That(_buzzPage.IsPostContextDisplayed);
+        BuzzPage.EnterPostText(TestSettings.BuzzPagePostText);
+        BuzzPage.ClickPostButton();
+        Assert.That(BuzzPage.IsPostContextDisplayed(TestSettings.BuzzPagePostText));
     }
 
     // Editing the post added in the first test, verifying that edited data successfully saved
@@ -48,23 +45,22 @@ public class BuzzTest : BaseTest
     [AllureDescription("Editing the post added in the first test, verifying that edited data successfully saved")]
     public void EditPost()
     {
-        _buzzPage.ClickEditPostButton();
-        _buzzPage.EnterEditedText(TestSettings.BuzzPageEditedPostText);
-        _buzzPage.ClickSaveEditedPostButton();
-        Assert.That(_buzzPage.IsEditedPostContextDisplayed);
+        BuzzPage.ClickEditPostButton(TestSettings.BuzzPagePostText);
+        EditPostPopup.EnterEditedText(TestSettings.BuzzPageEditedPostText);
+        EditPostPopup.ClickSaveEditedPostButton();
+        Assert.That(BuzzPage.IsEditedPostContextDisplayed(TestSettings.BuzzPageEditedPostText));
     }
 
     // Delete post added in the first test
-    // ЗАФЕЙЛЕННЫЙ ТЕСТ СОГЛАСНО ДЗ ЛЕК.15
     [Test]
     [AllureSeverity((SeverityLevel.normal))]
     [AllureSuite("Buzz functionality")]
     [AllureDescription("Delete post added in the first test")]
     public void PostDeletion()
     {
-        _buzzPage.ClickDeletePostButton();
-        _buzzPage.ClickYesDeleteButton();
-        Assert.That(!_buzzPage.IsEditedPostContextDisplayed);
+        BuzzPage.ClickDeletePostButton(TestSettings.BuzzPageEditedPostText);
+        DeletePopup.ClickYesDeleteButton();
+        Assert.True(!BuzzPage.IsEditedPostContextDisplayed(TestSettings.BuzzPageEditedPostText));
     }
 
     // adds screenshot if test is failed and clears cookies after execution of each test from the class

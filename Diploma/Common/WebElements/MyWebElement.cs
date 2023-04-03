@@ -19,7 +19,7 @@ namespace Diploma.Common.WebElements
 
         // protected property for IWebElement returns value using IWebDriver extension method GetWebElementWhenExist
         // after that we can be sure that element is always in a stable state and prevent possible exceptions
-        protected IWebElement WebElement => WebDriverFactory.Driver.GetWebElementWhenExist(By);
+        protected IWebElement WebElement => WebDriverFactory.Driver.GetWebElement(By);
 
         // default IWebElement properties
 
@@ -43,22 +43,30 @@ namespace Diploma.Common.WebElements
 
         public bool Displayed => WebElement.Displayed;
 
+        public bool IsDisplayed()
+        {
+            try
+            {
+                return Displayed;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
+            catch (WebDriverTimeoutException)
+            {
+                return false;
+            }
+        }
+
         // default IWebElement methods
 
         public void Clear() => WebElement.Clear();
 
         public void Click()
         {
-            try
-            {
-                WebElement.Click();
-            }
-            catch
-                (ElementClickInterceptedException) // here we can handle if click is intercepted and scroll element into view
-            {
-                ScrollIntoView();
-                WebElement.Click();
-            }
+            ScrollIntoView();
+            WebElement.Click();
         }
 
         public IWebElement FindElement(By by) => WebElement.FindElement(by);
@@ -81,17 +89,22 @@ namespace Diploma.Common.WebElements
 
         // custom methods
 
-        // method to scroll element into view using JaveScript
+        public void WaitUntilVisible()
+        {
+            if (IsDisplayed())
+            {
+                WebDriverFactory.Driver.WaitUntilElementIsVisible(By);
+            }
+        }
 
-        public void ScrollIntoView() =>
-            WebDriverFactory.JavaScriptExecutor.ExecuteScript("arguments[0].scrollIntoView()", WebElement);
+        // method to scroll element into view using JaveScript
+        public void ScrollIntoView() => WebDriverFactory.JavaScriptExecutor.ExecuteScript("arguments[0].scrollIntoView()", WebElement);
 
         // method to click element using JaveScript
-        public void ClickElement()
+        public void ClickViaJs()
         {
             ScrollIntoView();
-            WebDriverFactory.JavaScriptExecutor.ExecuteScript("arguments[0].click();",
-                WebElement); //WebDriverFactory.Actions.MoveToElement(WebElement).Click().Perform();
+            WebDriverFactory.JavaScriptExecutor.ExecuteScript("arguments[0].click();", WebElement);
         }
 
         // method highlights and deletes text in the input field

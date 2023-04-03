@@ -14,8 +14,6 @@ namespace Diploma.Tests;
 [AllureNUnit]
 public class LoginTest : BaseTest
 {
-    private readonly LoginPage _loginPage = new LoginPage();
-
     // used to go to URL to make sure that each test from the class will start from initial state
     [SetUp]
     public void LoginTestSetUp()
@@ -30,9 +28,9 @@ public class LoginTest : BaseTest
     [AllureDescription("Performing successful site login")]
     public void LoginToTheSite()
     {
-        _loginPage.EnterUsername(TestSettings.UserName);
-        _loginPage.EnterPassword(TestSettings.LoginPagePassword);
-        _loginPage.ClickLoginButton();
+        LoginPage.EnterUsername(TestSettings.UserName);
+        LoginPage.EnterPassword(TestSettings.LoginPagePassword);
+        LoginPage.ClickLoginButton();
         Assert.That(BasePage.IsOrangeImageDisplayed);
     }
 
@@ -43,11 +41,11 @@ public class LoginTest : BaseTest
     [AllureDescription("Negative test: Empty string to 'Username' and 'Password' fields was entered")]
     public void NegativeUsernameAndPasswordFieldsAreEmpty()
     {
-        _loginPage.EnterUsername("");
-        _loginPage.EnterPassword("");
-        _loginPage.ClickLoginButton();
-        Assert.That(_loginPage.IsRequiredErrorForUsernameTextBoxDisplayed);
-        Assert.That(_loginPage.IsRequiredErrorForPasswordTextBoxDisplayed);
+        LoginPage.EnterUsername(string.Empty);
+        LoginPage.EnterPassword(string.Empty);
+        LoginPage.ClickLoginButton();
+        Assert.That(LoginPage.IsRequiredErrorForUsernameTextBoxDisplayed);
+        Assert.That(LoginPage.IsRequiredErrorForPasswordTextBoxDisplayed);
     }
 
     // Invalid value to 'Username' field was entered
@@ -57,10 +55,10 @@ public class LoginTest : BaseTest
     [AllureDescription("Negative test: Invalid value to 'Username' field was entered")]
     public void NegativeInvalidUsernameIsEntered()
     {
-        _loginPage.EnterUsername(TestSettings.InvalidUserName);
-        _loginPage.EnterPassword(TestSettings.LoginPagePassword);
-        _loginPage.ClickLoginButton();
-        Assert.That(_loginPage.IsInvalidCredentialsErrorMessageDisplayed);
+        LoginPage.EnterUsername(TestSettings.InvalidUserName);
+        LoginPage.EnterPassword(TestSettings.LoginPagePassword);
+        LoginPage.ClickLoginButton();
+        Assert.That(LoginPage.IsInvalidCredentialsErrorMessageDisplayed);
     }
 
     // Invalid value to 'Password' field was entered
@@ -70,10 +68,10 @@ public class LoginTest : BaseTest
     [AllureDescription("Negative test: Invalid value to 'Password' field was entered")]
     public void NegativeInvalidPasswordIsEntered()
     {
-        _loginPage.EnterUsername(TestSettings.UserName);
-        _loginPage.EnterPassword(TestSettings.InvalidPassword);
-        _loginPage.ClickLoginButton();
-        Assert.That(_loginPage.IsInvalidCredentialsErrorMessageDisplayed);
+        LoginPage.EnterUsername(TestSettings.UserName);
+        LoginPage.EnterPassword(TestSettings.InvalidPassword);
+        LoginPage.ClickLoginButton();
+        Assert.That(LoginPage.IsInvalidCredentialsErrorMessageDisplayed);
     }
 
     // adds screenshot if test is failed and clears cookies after execution of each test from the class

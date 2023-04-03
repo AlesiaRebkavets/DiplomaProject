@@ -13,27 +13,21 @@ public static class TestSettings
     public static string LoginPagePassword { get; }
     public static string InvalidUserName { get; }
     public static string InvalidPassword { get; }
+    public static string AdminPageUserRoleDropDownValue { get; }
+    public static string AdminPageStatusDropDownValue { get; }
+    public static string AdminPageInputData { get; }
     public static string AdminPageEmployeeName { get; }
     public static string AdminPagePassword { get; }
     public static string AdminPageUsername { get; }
-
     public static string PimPageFirstName { get; }
-
     public static string PimPageMiddleName { get; }
-
     public static string PimPageLastName { get; }
-
     public static string PimPageEmployeeId { get; }
-
     public static string BuzzPagePostText { get; }
-
     public static string BuzzPageEditedPostText { get; }
 
-
     // after Build() it will contain context of .json file
-
-    public static IConfiguration TestConfiguration { get; } =
-        new ConfigurationBuilder().AddJsonFile("testsettings.json").Build();
+    public static IConfiguration TestConfiguration { get; } = new ConfigurationBuilder().AddJsonFile("testsettings.json").Build();
 
     static TestSettings()
     {
@@ -46,6 +40,9 @@ public static class TestSettings
         LoginPagePassword = TestConfiguration["LoginTestData:Password"];
         InvalidUserName = TestConfiguration["LoginTestData:InvalidUserName"];
         InvalidPassword = TestConfiguration["LoginTestData:InvalidPassword"];
+        AdminPageUserRoleDropDownValue = TestConfiguration["AdminTestData:UserRoleDropDownValue"];
+        AdminPageStatusDropDownValue = TestConfiguration["AdminTestData:StatusDropDownValue"];
+        AdminPageInputData = TestConfiguration["AdminTestData:InputData"];
         AdminPageEmployeeName = TestConfiguration["AdminTestData:EmployeeName"];
         AdminPagePassword = TestConfiguration["AdminTestData:Password"];
         AdminPageUsername = TestConfiguration["AdminTestData:Username"];
