@@ -1,0 +1,29 @@
+pipeline{
+    agent any  
+    environment {
+        nuget = "C:\\nuget\\nuget.exe"
+    }
+    stages{
+        stage('Restore') {
+            steps {
+                 bat 'dotnet restore'
+                 bat '%nuget% restore DiplomaProject.sln'
+            }
+        }
+         stage('Build') {
+            steps {
+                 bat 'dotnet build'
+            }
+        }
+        stage('Test') {
+            steps {
+                 bat 'dotnet test'
+            }
+        }                
+    }    
+    post{
+       always {
+          allure includeProperties: false, jdk: '', results: [[path: 'Diploma/bin/Debug/allure-results']]
+       }
+    }
+}
